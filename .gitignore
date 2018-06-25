@@ -2,4 +2,4 @@
 .AppleDouble
 .LSOverride
 ._*
-#TestIgnore/*
+TestIgnore/*
