@@ -1,0 +1,4 @@
+name: TestEnv
+dependencies:
+ - numpy
+ - pandas
