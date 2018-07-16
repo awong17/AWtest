@@ -1,24 +1,24 @@
-station Char[3]
-valid char[16]
-lon INT
-lat INT
-tmpf 
-dwpf
-relh
-drct
-sknt
-p01i
-alti
-mslp
-vsby
-gust
-skyc1
-skyc2
-skyc3
-skyc4
-skyl1
-skyl2
-skyl3
-skyl4
-wxcodes
+X station Char[3]
+X valid char[16]
+X lon INT
+X lat INT
+X tmpf FLOAT(5)
+X dwpf FLOAT(5)
+X relh FLOAT(5)
+X drct INT
+X sknt INT
+X p01i FLOAT(5)
+X alti FLOAT(4)
+X mslp FLOAT(7)
+X vsby FLOAT(3)
+X gust INT
+X skyc1 VARCHAR(3)
+X skyc2 VARCHAR(3)
+X skyc3 VARCHAR(3)
+X skyc4 VARCHAR(3)
+X skyl1 INT
+X skyl2 INT
+X skyl3 INT
+X skyl4 INT
+wxcodes VARCHAR(8)
 metar

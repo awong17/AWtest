@@ -163,7 +163,7 @@ def col_parse(cols):
         elif line in int_not_null:
             db_cols = db_cols + ",'" + line + "' INT NOT NULL"
         elif line in int_null:
-            db_cols = db_cols + ",'" + line + "' INT NULL"
+            db_cols = db_cols + ",'" + line + "' INT"
         elif line in date_not_null:
             db_cols = db_cols + ",'" + line + "' DATE NOT NULL"
         elif line in time_not_null:
@@ -173,7 +173,7 @@ def col_parse(cols):
         elif line in var_10_not_null:
             db_cols = db_cols + ",'" + line + "' VARCHAR(10) NOT NULL"
         elif line in var_45_null:
-            db_cols = db_cols + ",'" + line + "' VARCHAR(45) Null"
+            db_cols = db_cols + ",'" + line + "' VARCHAR(45)"
         else:
             print("Column %s does not exist in data." %line)
     return(db_cols)
