@@ -30,13 +30,13 @@ def create_db(db_path):
     conn = sqlite3.connect(db_path) #db should be the path specified for creating db location
     conn.commit()
     conn.close()
-    print('DB created succesfully at :' + str(db_path))
 
 
 def create_table(db_path,db_cols):
     """Creates the columns in the ontime performance database. 
     At the specified db path a table name 'ontime_performance' will be created if 
-    one does not exist.
+    one does not exist. It will also create the db at the specified path if it does not 
+    exist yet.
    
     Parameters
     ----------
@@ -159,7 +159,7 @@ def col_parse(cols):
     #Read the provided colns list and create the string for the db columns while appending the data types. If a column name is given but it not a column given in the raw data, it will print does not exist.
     for line in cols:
         if line == 'Year':
-            db_cols = db_cols + " 'YEAR' NOT NULL"
+            db_cols = db_cols + "%s 'YEAR' NOT NULL"
         elif line in int_not_null:
             db_cols = db_cols + ",'" + line + "' INT NOT NULL"
         elif line in int_null:
