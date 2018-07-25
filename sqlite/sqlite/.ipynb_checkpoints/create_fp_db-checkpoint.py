@@ -30,13 +30,13 @@ def create_db(db_path):
     conn = sqlite3.connect(db_path) #db should be the path specified for creating db location
     conn.commit()
     conn.close()
-    print('DB created succesfully at :' + str(db_path))
 
 
 def create_table(db_path,db_cols):
     """Creates the columns in the ontime performance database. 
     At the specified db path a table name 'ontime_performance' will be created if 
-    one does not exist.
+    one does not exist. It will also create the db at the specified path if it does not 
+    exist yet.
    
     Parameters
     ----------
@@ -58,7 +58,7 @@ def create_table(db_path,db_cols):
     conn = sqlite3.connect(db_path)
     c = conn.cursor()
 
-    sql = 'CREATE TABLE IF NOT EXISTS ontime_performance (%s)'%db_cols
+    sql = 'CREATE TABLE IF NOT EXISTS ontime_performance (%s)' %(db_cols,)
     
     c.execute(sql)
     
@@ -99,11 +99,9 @@ def insert_data(db_path,raw_path,cols):
     if "CRSDepTime" in cols:
         df.loc[df.CRSDepTime == 2400, 'CRSDepTime'] = 0000
         df.CRSDepTime = df.CRSDepTime.astype(str).str.zfill(4)
-        df.CRSDepTime = pd.to_datetime(df.CRSDepTime, format='%H%M').dt.time
     if "CRSArrTime" in cols:
         df.loc[df.CRSArrTime == 2400, 'CRSArrTime'] = 0000
         df.CRSArrTime = df.CRSArrTime.astype(str).str.zfill(4)
-        df.CRSArrTime = pd.to_datetime(df.CRSArrTime, format='%H%M').dt.time
 
     # Inserting the data into the table:
     engine = create_engine('sqlite:///'+db_path)

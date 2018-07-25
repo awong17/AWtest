@@ -58,7 +58,7 @@ def create_table(db_path,db_cols):
     conn = sqlite3.connect(db_path)
     c = conn.cursor()
 
-    sql = 'CREATE TABLE IF NOT EXISTS ontime_performance (%s)'%db_cols
+    sql = 'CREATE TABLE IF NOT EXISTS ontime_performance (%s)' %(db_cols,)
     
     c.execute(sql)
     
@@ -99,11 +99,9 @@ def insert_data(db_path,raw_path,cols):
     if "CRSDepTime" in cols:
         df.loc[df.CRSDepTime == 2400, 'CRSDepTime'] = 0000
         df.CRSDepTime = df.CRSDepTime.astype(str).str.zfill(4)
-        df.CRSDepTime = pd.to_datetime(df.CRSDepTime, format='%H%M').dt.time
     if "CRSArrTime" in cols:
         df.loc[df.CRSArrTime == 2400, 'CRSArrTime'] = 0000
         df.CRSArrTime = df.CRSArrTime.astype(str).str.zfill(4)
-        df.CRSArrTime = pd.to_datetime(df.CRSArrTime, format='%H%M').dt.time
 
     # Inserting the data into the table:
     engine = create_engine('sqlite:///'+db_path)
@@ -159,7 +157,7 @@ def col_parse(cols):
     #Read the provided colns list and create the string for the db columns while appending the data types. If a column name is given but it not a column given in the raw data, it will print does not exist.
     for line in cols:
         if line == 'Year':
-            db_cols = db_cols + "%s 'YEAR' NOT NULL"
+            db_cols = db_cols + " 'YEAR' NOT NULL"
         elif line in int_not_null:
             db_cols = db_cols + ",'" + line + "' INT NOT NULL"
         elif line in int_null:
