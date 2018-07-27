@@ -2,6 +2,9 @@
 .AppleDouble
 .LSOverride
 ._*
+.pytest_cache
+.ipynb_checkpoints
+__pycache__/*
 TestIgnore/*
 data/
 atnresilience/data/*
