@@ -66,7 +66,7 @@ def create_table(db_path,db_cols):
     conn.close()
     
     
-def insert_data(db_path,raw_path,cols):
+def insert_data(db_path,raw_folder,raw_path,cols):
     """Creates the columns in the ontime performance database. 
     At the specified db path a table name 'ontime_performance' will be created if 
     one does not exist.
@@ -102,6 +102,9 @@ def insert_data(db_path,raw_path,cols):
     if "CRSArrTime" in cols:
         df.loc[df.CRSArrTime == 2400, 'CRSArrTime'] = 0000
         df.CRSArrTime = df.CRSArrTime.astype(str).str.zfill(4)
+    if "Origin" in cols:
+        for line in df['Origin']:
+            
 
     # Inserting the data into the table:
     engine = create_engine('sqlite:///'+db_path)
@@ -111,7 +114,15 @@ def insert_data(db_path,raw_path,cols):
     conn.commit()
     conn.close()
     
-
+    
+def add_timezone(raw_folder,airports,timezone):
+    timezones = []
+    timezone_file = '%s/airport_timezone.csv' %(raw_folder,)
+    tz = pd.read_csv(timezone_file,usercols=['IATA','Timezone'])
+    #The df.loc function will output the corresponding timezone based on the given IATA/airport code. 
+    #Since this returns a series, we need to use iloc[0] to get the number we need and append it to the timezones output list.
+    timezones.append(df.loc[df['IATA']==airports,'Timezone'].iloc[0])
+    
 def col_parse(cols):
     """Creates the columns string which will be used to create the db, 
     since we are taking a list of columns, the list must be converted
